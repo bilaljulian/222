@@ -1,94 +1,93 @@
-<a id="listing-page-link">Listing Page</a>
+<a href="#" id="listing-page-link">Listing Page</a>
 
 <script>
-  let currentPage = 1;
+let currentPage = 1;
 
-  const listingPageLink = document.getElementById('listing-page-link');
+const listingPageLink = document.getElementById('listing-page-link');
 
-  listingPageLink.addEventListener('click', showListingPage);
+listingPageLink.addEventListener('click', showListingPage);
 
-  function showListingPage() {
-    const newWindow = window.open("", "_blank");
-    let pageContent = `
-      <h1>Listing Page ${currentPage}</h1>
-    `;
+function showListingPage() {
+const newWindow = window.open("", "_blank");
+let pageContent = `
+<h1>Listing Page ${currentPage}</h1>
+`;
 
-    if (currentPage === 1) {
-      pageContent += `
-        <div style="display: flex; flex-wrap: wrap; justify-content: center;">
-          <input type="url" id="picture1" style="display: block; margin: 20px;">
-          <img id="picture-box1" style="width: 461px; height: 290px; border: 1px solid #ccc;"/>
-          <button id="add-button1" style="width: 150px; height: 100px; font-size: 24px; margin-top: 20px;">Add</button>
-          <button id="more-button" style="width: 150px; height: 100px; font-size: 24px; margin-top: 20px;">More</button>
-          ${Array(5).fill().map((_, i) => `
-            <div style="margin: 10px;">
-              <input type="url" id="picture${i+2}" style="display: block; margin: 20px;">
-              <img id="picture-box${i+2}" style="width: 150px; height: 100px; border: 1px solid #ccc;"/>
-            </div>
-          `).join('')}
-        </div>
-      `;
-    } else {
-      pageContent += `
-        <input type="url" id="picture${currentPage}" style="display: block; margin: 20px;">
-        <img id="picture-box${currentPage}" style="width: 461px; height: 290px; border: 1px solid #ccc;"/>
-        <button id="add-button${currentPage}" style="width: 150px; height: 100px; font-size: 24px; margin-top: 20px;">Add</button>
-        <button id="prev-button" style="position: absolute; top: 50%; left: 5px;">Prev</button>
-        <button id="next-button" style="position: absolute; top: 50%; right: 5px;">Next</button>
-      `;
-    }
+if (currentPage === 1) {
+pageContent += `
+<div style="display: flex; flex-wrap: wrap; justify-content: center;">
+<input type="url" id="picture1" style="display: block; margin: 20px;">
+<img id="picture-box1" style="width: 461px; height: 290px; border: 1px solid #ccc;"/>
+<button id="add-button1" style="width: 150px; height: 100px; font-size: 24px; margin-top: 20px;">Add</button>
+<button id="more-button" style="width: 150px; height: 100px; font-size: 24px; margin-top: 20px;">More</button>
+${Array(5).fill().map((_, i) => `
+<div style="margin: 10px;">
+<input type="url" id="picture${i+2}" style="display: block; margin: 20px;">
+<img id="picture-box${i+2}" style="width: 150px; height: 100px; border: 1px solid #ccc;"/>
+</div>
+`).join('')}
+</div>
+`;
+} else {
+pageContent += `
+<input type="url" id="picture${currentPage}" style="display: block; margin: 20px;">
+<img id="picture-box${currentPage}" style="width: 461px; height: 290px; border: 1px solid #ccc;"/>
+<button id="add-button${currentPage}" style="width: 150px; height: 100px; font-size: 24px; margin-top: 20px;">Add</button>
+<button id="prev-button" style="position: absolute; top: 50%; left: 5px;">Prev</button>
+<button id="next-button" style="position: absolute; top: 50%; right: 5px;">Next</button>
+`;
+}
 
-    newWindow.document.body.innerHTML = pageContent;
+newWindow.document.body.innerHTML = pageContent;
 
-    if (currentPage === 1) {
-      const addButton = newWindow.document.getElementById('add-button1');
-      addButton.addEventListener('click', () => {
-        const pictureInput = newWindow.document.getElementById('picture1');
-        const pictureBox = newWindow.document.getElementById('picture-box1');
-        pictureBox.src = pictureInput.value;
-      });
+if (currentPage === 1) {
+const addButton = newWindow.document.getElementById('add-button1');
+addButton.addEventListener('click', () => {
+const pictureInput = newWindow.document.getElementById('picture1');
+const pictureBox = newWindow.document.getElementById('picture-box1');
+pictureBox.src = pictureInput.value;
+});
 
-      const moreButton = newWindow.document.getElementById('more-button');
-      moreButton.addEventListener('click', () => {
-        currentPage++;
-        showListingPage();
-      });
+const moreButton = newWindow.document.getElementById('more-button');
+moreButton.addEventListener('click', () => {
+currentPage++;
+showListingPage();
+});
 
-      Array(5).fill().forEach((_, i) => {
-        const pictureInput = newWindow.document.getElementById(`picture${i+2}`);
-        const pictureBox = newWindow.document.getElementById(`picture-box${i+2}`);
-        pictureInput.addEventListener('input', function() {
-          pictureBox.src = pictureInput.value;
-        });
-      });
-    } else {
-      const addButton = newWindow.document.getElementById(`add-button${currentPage}`);
-      addButton.addEventListener('click', () => {
-        const pictureInput = newWindow.document.getElementById(`picture${currentPage}`);
-        const pictureBox = newWindow.document.getElementById(`picture-box${currentPage}`);
-        pictureBox.src = pictureInput.value;
-      });
+Array(5).fill().forEach((_, i) => {
+const pictureInput = newWindow.document.getElementById(`picture${i+2}`);
+const pictureBox = newWindow.document.getElementById(`picture-box${i+2}`);
+pictureInput.addEventListener('input', function() {
+pictureBox.src = pictureInput.value;
+});
+});
+} else {
+const addButton = newWindow.document.getElementById(`add-button${currentPage}`);
+addButton.addEventListener('click', () => {
+const pictureInput = newWindow.document.getElementById(`picture${currentPage}`);
+const pictureBox = newWindow.document.getElementById(`picture-box${currentPage}`);
+pictureBox.src = pictureInput.value;
+});
 
-      const pictureInput = newWindow.document.getElementById(`picture${currentPage}`);
-      const pictureBox = newWindow.document.getElementById(`picture-box${currentPage}`);
-      pictureInput.addEventListener('input', function() {
-        pictureBox.src = pictureInput.value;
-      });
+const pictureInput = newWindow.document.getElementById(`picture${currentPage}`);
+const pictureBox = newWindow.document.getElementById(`picture-box${currentPage}`);
+pictureInput.addEventListener('input', function() {
+pictureBox.src = pictureInput.value;
+});
 
-      const prevButton = newWindow.document.getElementById('prev-button');
-      prevButton.addEventListener('click', () => {
-        currentPage--;
-        showListingPage();
-      });
+const prevButton = newWindow.document.getElementById('prev-button');
+prevButton.addEventListener('click', () => {
+currentPage--;
+showListingPage();
+});
 
-      const nextButton = newWindow.document.getElementById('next-button');
-      nextButton.addEventListener('click', () => {
-        currentPage++;
-        showListingPage();
-      });
-    }
-  }
+const nextButton = newWindow.document.getElementById('next-button');
+nextButton.addEventListener('click', () => {
+currentPage++;
+showListingPage();
+});
+}
+}
 </script>
-  
 
    
